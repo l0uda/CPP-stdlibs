@@ -1,0 +1,4 @@
+#define A Preprocesor
+#define B funguje
+#define C dobře
+A B C

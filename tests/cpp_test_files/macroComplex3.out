@@ -1,0 +1,12 @@
+original:
+
+#define E1(X) X X
+#define E2(X) E1(X) E1(X)
+#define E3(X) E2(X) E2(X)
+#define E4(X) E3(X) E3(X)
+#define E E E
+E4(E)
+-----------
+preprocessed:
+
+E E E E E E E E E E E E E E E E E E E E E E E E E E E E E E E E

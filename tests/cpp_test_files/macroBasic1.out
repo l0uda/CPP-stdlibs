@@ -1,0 +1,10 @@
+original:
+
+#define A Preprocesor
+#define B funguje
+#define C dobře
+A B C
+-----------
+preprocessed:
+
+Preprocesor funguje dobře

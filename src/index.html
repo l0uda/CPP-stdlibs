@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>C boi</title>
+</head>
+<body>
+
+
+<noscript>You need to enable JavaScript to view the full site.</noscript>
+<script src="fix.js"></script>
+<script src="main.js"></script>
+
+
+<form id="sourceInputBox" name="sourceInputBox" onsubmit="getF(document.getElementById('sourceCode').value);return false;">
+    <label for="sourceCode">Source code:</label>
+    <textarea rows = "5" cols = "60" id="sourceCode" name="sourceCode">
+#if 1 + 2
+#define A 3
+#else
+#define A 2
+#endif
+A
+</textarea><br>
+    <input type="submit" value="Submit">
+</form>
+
+<p id="lll">
+</p>
+
+<script>
+    function getF(arg){
+        document.getElementById('lll').innerHTML = '';
+        let ret = window.htmlCall(arg);
+        try{
+        	let ret = window.htmlCall(arg);
+            let lines = ret.split('\n');
+            for (let line of lines){
+                let i = 0;
+                while(line[i] == ' '){
+                    document.getElementById('lll').innerHTML += '&nbsp;';
+                    i++;
+                }
+                document.getElementById('lll').innerHTML += line.slice(i).replace(/\&/g,'&amp;').replace(/\</g,'&lt;').replace(/\>/g,'&gt;').replace(/ /g,'&nbsp;')+'<br>';
+            }		
+        }
+        catch(e) {
+            alert(e);
+        }
+    }
+</script>
+
+</body>
+</html>
