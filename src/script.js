@@ -2691,7 +2691,7 @@ function resolveExpression(tokens,defines,definesF,definesFV){
     for (let index = 0; index < tokens.length; index++){
         let tok = tokens[index];
         ''
-        if (['+','-','*','/','%','==','>','<','>=','<=','!=','||','&&','!','?','<<','>>','~','&','^','|'].includes(tok['content'])) {
+        if (['+','-','*','/','%','==','>','<','>=','<=','!=','||','&&','!','?','<<','>>','~','&','^','|','(',')'].includes(tok['content'])) {
             finalStream+=tok['content'];
             continue;
         }
@@ -3399,6 +3399,7 @@ function phase4(tokens){
                     if (!expression2.length) return errorMessage("error: #if with no expression",directiveToken['line'],directiveToken['index']);
 
                     ifTokens[ifTokens.length-1] = directiveToken;
+		    lastConditionalToken = directiveToken;
                     expression2 = resolveExpression(expression2,defines,definesF,definesFV);
                     ifs[ifs.length-1] = !ifs[ifs.length-1] && expression2;
                     if (!ifs.includes(0) && !ifs.includes(false)) toParse = 1;
@@ -3407,6 +3408,7 @@ function phase4(tokens){
                 case 'endif':
                     if (tokenline[index2+1]) errorMessage("error: extra tokens after the end of #"+directiveToken['content']+" directive",tokenline[index2+1]['line'],tokenline[index2+1]['index']);
                     ifs.pop();
+		    lastConditionalToken = directiveToken;
                     ifTokens.pop();
                     if (!ifs.includes(0) && !ifs.includes(false)) toParse = 1;
                     break;
